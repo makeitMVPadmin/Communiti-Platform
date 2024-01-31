@@ -5,7 +5,7 @@
 1. Clone Repo
 2. Run `npm install`
 3. Create a `.env` file at the root of the project with the following variables: (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId).
-4. You can get the values of these by going to the Firebase Console -> Select Coffe Chat -> Project Settings
+4. You can get the values of these by going to the **Firebase Console -> Select Coffe Chat -> Project Settings**
 5. Scroll down to the firebaseConfig code snipet. Should look like this. ![Screenshot](./screenshot_1.png)
 6. Install VS Code [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 7. Install VS Code [Eslint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
