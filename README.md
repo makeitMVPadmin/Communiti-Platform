@@ -18,7 +18,26 @@ Resources: [What is a Linter ?](https://www.testim.io/blog/what-is-a-linter-here
 
 The project enforces the [Conventional Commits](https://www.conventionalcommits.org/) specification. This means that all your commit messages must be formatted according to the specification. To help you write commit messages, the project uses [Commitizen](https://github.com/commitizen/cz-cli), an interactive CLI that guides you through the commit process.
 
-To commit new changes simply run `npm run commit` instead of `git commit -m`.
+To commit new changes simply run `npm run commit` instead of `git commit -m`. This will open an interactive CLI.
+
+The Collaborative Workflows we'll be following can be summarized in these two guides:
+
+- [GitFlow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+- [Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
+
+### Step by step workflow for working on a new feature or bug fix:
+
+1. Run `git checkout dev`
+2. Fetch the latest changes from the remote by running `git pull`
+3. Checkout a new branch with the following naming format **dev-<user>-<feature>** _(e.g. `git checkout -b dev-christian-oauth`)_
+4. Make updates and new additions in the previously creted branch
+5. When the feature or bug-fix is complete, run `git checkout dev`
+6. Run `git pull` again fetch any updates from the dev branch
+7. Checkout your local working branch `git checkout -b dev-christian-oauth`
+8. Run `git merge dev` to locally merge your branch with the updated dev branch
+9. If there are no conflicts, simply run `git push --set-upstream origin dev-christian-oauth` and go to [github](https://github.com/makeitMVPadmin/Communiti-Platform/pulls), create a new Pull request. Important note: **Set base branch to Dev**.
+
+_If you ran into conflicts, there are several ways to resolve this._
 
 ## 4. Naming Conventions
 
