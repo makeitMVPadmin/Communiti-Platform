@@ -1,5 +1,21 @@
 # Backend API for the makeitMVP ecosystem - By MergeIntegration
 
+## 0. Getting Started
+
+1. Clone Repo
+2. Run `npm install`
+3. Create a `.env` file at the root of the project with the following variables: (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId).
+4. You can get the values of these by going to the Firebase Console -> Select Coffe Chat -> Project Settings
+5. Scroll down to the firebaseConfig code snipet. Should look like this. ![Screenshot](./screenshot_1.png)
+6. Install VS Code [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+7. Install VS Code [Eslint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+8. From the root folder run `ts-node src/fireStoreTutorial/createDocument.ts` _Should print successfully created_ to the console.
+9. From the root folder run `ts-node src/fireStoreTutorial/readDocument.ts` _Should Print the newly created document to the console._
+10. Run `ts-node src/fireStoreTutorial/updateDocument.ts` followed by `ts-node src/fireStoreTutorial/updateDocument.ts` _should print the object with aplplied updates._
+11. Running `ts-node src/fireStoreTutorial/deleteDocument.ts` _should print 'successfully Deleted'_
+
+These are simple CRUD operations using the Firebase Node package. You can experiment with the files in the folder firestoreTutorial to get more familiar with the toolkit.
+
 ## 1. Naming Conventions:
 
 - Use camelCase for variable and function names.
