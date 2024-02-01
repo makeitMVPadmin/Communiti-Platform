@@ -7,6 +7,7 @@ import firebaseConfig from "../firebaseConfig";
 const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+console.log(app)
 
 type ValuesObject = {
   name: string;
@@ -31,7 +32,7 @@ async function setCity(cityId: string, values: ValuesObject) {
   return;
 }
 
-setCity("LA", { name: "Los Angeles", state: "CA", country: "USA" })
+setCity("LA", { name: "Richmond", state: "VA", country: "USA" })
   .then(() => {
     // Optionally do something after the setCity operation is complete.
     // Note: You don't need to terminate the connection explicitly.
