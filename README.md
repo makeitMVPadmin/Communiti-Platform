@@ -5,7 +5,7 @@
 1. Clone Repo
 2. Run `npm install`
 3. Create a `.env` file at the root of the project with the following variables: (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId).
-4. You can get the values of these by going to the **Firebase Console -> Select Coffe Chat -> Project Settings**
+4. You can get the values of these by going to the **Firebase Console -> Select Coffee Chat -> Project Settings**
 5. Scroll down to the firebaseConfig code snipet. Should look like this. ![Screenshot](./screenshot_1.png)
 6. Install VS Code [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 7. Install VS Code [Eslint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
@@ -43,14 +43,14 @@ The Collaborative Workflows we'll be following can be summarized in these two gu
 
 ### Step by step workflow for working on a new feature or bug fix:
 
-1. Run `git checkout dev`
+1. Run `git checkout develop`
 2. Fetch the latest changes from the remote by running `git pull`
 3. Checkout a new branch with the following naming format **dev-<user>-<feature>** _(e.g. `git checkout -b dev-christian-oauth`)_
-4. Make updates and new additions in the previously creted branch
-5. When the feature or bug-fix is complete, run `git checkout dev`
+4. Make updates and new additions in the previously created branch
+5. When the feature or bug-fix is complete, run `git checkout develop`
 6. Run `git pull` again fetch any updates from the dev branch
 7. Checkout your local working branch `git checkout -b dev-christian-oauth`
-8. Run `git merge dev` to locally merge your branch with the updated dev branch
+8. Run `git merge develop` to locally merge your branch with the updated dev branch
 9. If there are no conflicts, simply run `git push --set-upstream origin dev-christian-oauth` and go to [github](https://github.com/makeitMVPadmin/Communiti-Platform/pulls), create a new Pull request. Important note: **Set base branch to Dev**.
 
 _If you ran into conflicts, there are several ways to resolve this._
