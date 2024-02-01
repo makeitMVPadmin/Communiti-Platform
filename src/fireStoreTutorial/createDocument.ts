@@ -32,7 +32,7 @@ async function setCity(cityId: string, values: ValuesObject) {
   return;
 }
 
-setCity("LA", { name: "Richmond", state: "VA", country: "USA" })
+setCity("LA", { name: "Los Angeles", state: "CA", country: "USA" })
   .then(() => {
     // Optionally do something after the setCity operation is complete.
     // Note: You don't need to terminate the connection explicitly.
