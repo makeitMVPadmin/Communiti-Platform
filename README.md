@@ -22,7 +22,7 @@ These are simple CRUD operations using the Firebase Node package. You can experi
 - Use PascalCase for class names and interface names.
 - Use camelCase for interface members.
 - Use PascalCase for type names and enum names.
-- Name files with camelCase (for example, ebsVolumes.tsx or storage.tsb)
+- Name files with camelCase (for example, `myFile.tsx` or `views.tsx`)
 
 ## 2. Lint Rules and Code Formatting:
 
@@ -55,15 +55,7 @@ The Collaborative Workflows we'll be following can be summarized in these two gu
 
 _If you ran into conflicts, there are several ways to resolve this._
 
-## 4. Naming Conventions
-
-- Use camelCase for variable and function names.
-- Use PascalCase for class names and interface names.
-- Use camelCase for interface members.
-- Use PascalCase for type names and enum names.
-- Name files with camelCase (for example, `myFile.tsx` or `views.tsx`)
-
-## 5. Tech Stack
+## 4. Tech Stack
 
 Our API will be completely Serverless harnessing the power of [Firestore](https://firebase.google.com/docs/firestore), [Cloud Functions](https://firebase.google.com/docs/functions), [API Getaway](https://cloud.google.com/api-gateway), and Typescript.
 
