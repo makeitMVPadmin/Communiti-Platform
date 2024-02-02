@@ -1,4 +1,5 @@
-const db = require("../config/firebaseConfig");
+const { getFirestore } = require("firebase-admin/firestore");
+const { initializeApp } = require("firebase-admin/app");
 const {
   collection,
   query,
@@ -10,20 +11,21 @@ const {
   addDoc,
 } = require("firebase/firestore");
 
+initializeApp();
+const db = getFirestore();
+
 async function addEvents(req, res) {
   const { title, text } = req.body;
 
   try {
-    // const eventsRef = collection(db, "events");
-
-    const docRef = await addDoc(collection(db, "events"), {
+    const eventDoc = await db.collection("events").add({
       title: title,
       text: text,
     });
 
     res.status(200).send({
       status: "success",
-      message: `event added successfully with ID ${docRef.id}`,
+      message: `event added successfully with ID ${eventDoc.id}`,
     });
   } catch (error) {
     res.status(500).json(error.message);
@@ -32,11 +34,16 @@ async function addEvents(req, res) {
 
 async function getAllEvents(req, res) {
   try {
-    const allEvents = [];
-    const querySnapshot = await db.collection("events").get();
-    querySnapshot.forEach((doc) => allEvents.push(doc.data()));
+    const eventsRef = db.collection("events");
+    const eventDocs = await eventsRef.get();
 
-    return res.status(200).json(allEvents);
+    result = [];
+
+    eventDocs.forEach((doc) => {
+      result.push(doc.data());
+    });
+
+    res.status(200).json({ events: result });
   } catch (error) {
     return res.status(500).json(error.message);
   }
@@ -44,20 +51,30 @@ async function getAllEvents(req, res) {
 
 async function getSingleEvent(req, res) {
   try {
-    console.log("111");
-    const docRef = doc(db, "events", req.params.eventId);
-    console.log("222");
-    const docSnap = await getDoc(docRef);
+    const eventRef = db.collection("events").doc(req.params.eventId);
+    const doc = await eventRef.get();
 
-    if (docSnap.exists()) {
-      console.log("333");
-      return res.status(200).json(docSnap.data());
+    if (!doc.exists) {
+      console.log("No such document!");
+      res
+        .status(404)
+        .json({ message: "The Event you requested does not exist" });
     } else {
-      return res.status(404).json({ Error: "Event Document Does not exist. " });
+      res.status(200).json(doc.data());
     }
   } catch (error) {
     return res.status(500).json(error.message);
   }
 }
 
-module.exports = { getAllEvents, addEvents, getSingleEvent };
+async function deleteEvent(req, res) {
+  try {
+    const result = await db.collection("events").doc("events").delete();
+    console.log(result, "xxx");
+    res.status(200).json({ message: "Event Document Deleted Successfully" });
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+module.exports = { getAllEvents, addEvents, getSingleEvent, deleteEvent };
