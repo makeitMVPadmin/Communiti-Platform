@@ -1,6 +1,0 @@
-node_modules
-.*
-.env
-!.eslint*
-!.gitignore
-firebaseConfig.js
