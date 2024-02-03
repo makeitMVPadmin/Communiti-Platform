@@ -5,7 +5,7 @@
 1. Clone Repo, and `cd into the '/functions' directory`
 2. Run `npm install`
 3. On the Firebase Console **->Go to Communiti Project -> Project Settings -> Service ccounts -> Generate New Private Key**
-4. Rename the downloaded json file to _"serviceAccounts.js"_ and add it to the `./functions/src/config` directory. **This file is the private key, and must be kept confidential. It is already added to the .gitignore file.**
+4. Rename the downloaded json file to _"serviceAccount.js"_ and add it to the `./functions/src/config` directory. **This file is the private key, and must be kept confidential. It is already added to the .gitignore file.**
 5. Install VS Code [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 6. Run `npm run start` on the _/functions_ folder.
 7. To open up the local Firebase Emulator UI visit [ http://127.0.0.1:4000/](http://127.0.0.1:4000/)
