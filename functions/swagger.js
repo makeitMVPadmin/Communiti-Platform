@@ -6,7 +6,7 @@ const doc = {
     description: `Fully serverless REST api managing the backend for Communiti, SuperGroup, Coffee Chat, and MergeIntegration teams. 
     The Objective of this API is to provide a Centralized solution for the Software Solutions within the makeitMVP ecosystem. `,
   },
-  host: "127.0.0.1:5001/fx-test-merge/us-central1/app",
+  host: "127.0.0.1:5001/fx-test-merge/us-central1/api",
 };
 
 const outputFile = "./swagger_output.json";

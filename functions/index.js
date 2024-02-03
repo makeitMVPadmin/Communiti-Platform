@@ -18,4 +18,4 @@ app.use(router);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-exports.app = functions.https.onRequest(app);
+exports.api = functions.https.onRequest(app);
