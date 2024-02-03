@@ -11,6 +11,8 @@ const {
   addDoc,
 } = require("firebase/firestore");
 
+const { event } = require("firebase-functions/v1/analytics");
+
 initializeApp();
 const db = getFirestore();
 
@@ -55,7 +57,6 @@ async function getSingleEvent(req, res) {
     const doc = await eventRef.get();
 
     if (!doc.exists) {
-      console.log("No such document!");
       res
         .status(404)
         .json({ message: "The Event you requested does not exist" });
@@ -69,12 +70,69 @@ async function getSingleEvent(req, res) {
 
 async function deleteEvent(req, res) {
   try {
-    const result = await db.collection("events").doc("events").delete();
-    console.log(result, "xxx");
-    res.status(200).json({ message: "Event Document Deleted Successfully" });
+    const eventRef = db.collection("events").doc(req.params.eventId);
+    const eventDoc = await eventRef.get();
+
+    if (!eventDoc.exists) {
+      res
+        .status(404)
+        .json({ message: "The Event Document you requested does not exist" });
+    } else {
+      await db.collection("events").doc(req.params.eventId).delete();
+      res.status(200).json({ message: "Event Document Deleted Successfully" });
+    }
   } catch (error) {
     return res.status(500).json(error.message);
   }
 }
 
-module.exports = { getAllEvents, addEvents, getSingleEvent, deleteEvent };
+async function deleteEvent(req, res) {
+  try {
+    const eventRef = db.collection("events").doc(req.params.eventId);
+    const eventDoc = await eventRef.get();
+
+    if (!eventDoc.exists) {
+      res
+        .status(404)
+        .json({ message: "The Event Document you requested does not exist" });
+    } else {
+      await db.collection("events").doc(req.params.eventId).delete();
+      res.status(200).json({ message: "Event Document Deleted Successfully" });
+    }
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+async function updateEvent(req, res) {
+  const shouldMerge = req.query.shouldMerge === "true";
+
+  try {
+    const eventRef = db.collection("events").doc(req.params.eventId);
+    const eventDoc = await eventRef.get();
+
+    if (!eventDoc.exists) {
+      res
+        .status(404)
+        .json({ message: "The Event Document you requested does not exist" });
+    } else {
+      const result = await eventRef.set(
+        { ...req.body },
+        { merge: shouldMerge }
+      );
+      res
+        .status(200)
+        .json({ message: `Successfully updated event ${eventDoc.id}` });
+    }
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+module.exports = {
+  getAllEvents,
+  addEvents,
+  getSingleEvent,
+  deleteEvent,
+  updateEvent,
+};

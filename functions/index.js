@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const eventsRouter = require("./src/routes/eventsRouter");
 
 const app = express();
+
 app.use(express.json());
 app.use(bodyParser.json());
 
