@@ -2,16 +2,16 @@ const express = require("express");
 
 const eventsController = require("../controllers/eventsController.js");
 
-const router = express.Router();
+const eventsRouter = express.Router();
 
-router.get("/", eventsController.getAllEvents);
+eventsRouter.get("/", eventsController.getAllEvents);
 
-router.get("/:eventId", eventsController.getSingleEvent);
+eventsRouter.get("/:eventId", eventsController.getSingleEvent);
 
-router.patch("/:eventId", eventsController.updateEvent);
+eventsRouter.patch("/:eventId", eventsController.updateEvent);
 
-router.post("/", eventsController.addEvents);
+eventsRouter.post("/", eventsController.addEvents);
 
-router.delete("/:eventId", eventsController.deleteEvent);
+eventsRouter.delete("/:eventId", eventsController.deleteEvent);
 
-module.exports = router;
+module.exports = eventsRouter;
