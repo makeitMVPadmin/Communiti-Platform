@@ -1,5 +1,6 @@
 const { getFirestore } = require("firebase-admin/firestore");
 const { initializeApp } = require("firebase-admin/app");
+
 const {
   collection,
   query,
@@ -11,9 +12,6 @@ const {
   addDoc,
 } = require("firebase/firestore");
 
-const { event } = require("firebase-functions/v1/analytics");
-
-initializeApp();
 const db = getFirestore();
 
 async function addEvents(req, res) {

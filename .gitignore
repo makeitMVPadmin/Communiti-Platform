@@ -1,3 +1,6 @@
+# THis is the private KEY, must be included in .giignore
+serviceAccount.json 
+
 # Logs
 .env
 logs
@@ -65,3 +68,5 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+
