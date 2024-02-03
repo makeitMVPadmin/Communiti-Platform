@@ -2,16 +2,15 @@
 
 ## 0. Getting Started
 
-1. Clone Repo
+1. Clone Repo, and `cd into the '/functions' directory`
 2. Run `npm install`
-3. Create a `.env` file at the root of the project with the following variables: (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId).
-4. You can get the values of these by going to the **Firebase Console -> Communiti -> Project Settings -> Service ccounts -> Generate New Private Key**
-5. Rename the downloaded json file to _"serviceAccounts.js"_ and add it to the `./functions/src/config` folder
-6. Install VS Code [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-7. Run `npm run start`
-8. To open up the local Firebase Emulator UI visit [ http://127.0.0.1:4000/](http://127.0.0.1:4000/)
-9. To access the interactive Swagger Docs, visit [http://127.0.0.1:5001/communiti-630fc/us-central1/api/docs/](http://127.0.0.1:5001/communiti-630fc/us-central1/api/docs/)
-10. Test the default public endpoints using the interactive UI, and see created documents on the firestore Emulator
+3. On the Firebase Console **->Go to Communiti Project -> Project Settings -> Service ccounts -> Generate New Private Key**
+4. Rename the downloaded json file to _"serviceAccounts.js"_ and add it to the `./functions/src/config` directory. **This file is the private key, and must be kept confidential. It is already added to the .gitignore file.**
+5. Install VS Code [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+6. Run `npm run start` on the _/functions_ folder.
+7. To open up the local Firebase Emulator UI visit [ http://127.0.0.1:4000/](http://127.0.0.1:4000/)
+8. To access the interactive Swagger API Docs, visit [http://127.0.0.1:5001/communiti-630fc/us-central1/api/docs/](http://127.0.0.1:5001/communiti-630fc/us-central1/api/docs/)
+9. Test the default public endpoints using the UI, see created documents on the firestore Emulator.
 
 ## 1. Naming Conventions:
 
