@@ -5,9 +5,11 @@
     "description": "Fully serverless REST api managing the backend for Communiti, SuperGroup, Coffee Chat, and MergeIntegration teams. \n    The Objective of this API is to provide a Centralized solution for the Software Solutions within the makeitMVP ecosystem. ",
     "version": "1.0.0"
   },
-  "host": "127.0.0.1:5001/fx-test-merge/us-central1/api",
+  "host": "127.0.0.1:5001/communiti-630fc/us-central1/api",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/events/": {
       "get": {
@@ -126,15 +128,6 @@
     "/user/profile": {
       "get": {
         "description": "",
-        "tags": ["Protected Routes"],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
