@@ -14,4 +14,6 @@ eventsRouter.post("/", eventsController.addEvents);
 
 eventsRouter.delete("/:eventId", eventsController.deleteEvent);
 
+eventsRouter.post("/:eventId/users", eventsController.addAttendingUsersToEvent);
+
 module.exports = eventsRouter;

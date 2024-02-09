@@ -1,4 +1,4 @@
-const { getFirestore } = require("firebase-admin/firestore");
+const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { initializeApp } = require("firebase-admin/app");
 
 const {
@@ -127,10 +127,38 @@ async function updateEvent(req, res) {
   }
 }
 
+async function addAttendingUsersToEvent(req, res) {
+  const eventId = req.params.eventId;
+
+  // attendingUsersIds is an array of ids of the form [ "UvGlK6WZvOPsRg6zol92", ... ]
+  const { attendingUsersIds } = req.body;
+
+  try {
+    //get Reference for particular event
+    const eventRef = db.collection("events").doc(eventId);
+
+    // GET an array of references to the provided users by their ID
+    const usersRef = attendingUsersIds.map((userId) =>
+      db.collection("users").doc(userId)
+    );
+
+    // Use the UPDATE interface and arrayUnion to add new elements to the users array while keeing existing ones
+    await eventRef.update({
+      users: FieldValue.arrayUnion(...usersRef),
+    });
+
+    res.status(200).json({
+      message: `Successfully added users to event `,
+    });
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
 module.exports = {
   getAllEvents,
   addEvents,
   getSingleEvent,
   deleteEvent,
   updateEvent,
+  addAttendingUsersToEvent,
 };

@@ -25,6 +25,6 @@ app.use(AuthenticationMiddleware.decodeToken);
 
 app.use(router);
 
-app.use(["/docs"], swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use(["/"], swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 exports.api = functions.https.onRequest(app);
