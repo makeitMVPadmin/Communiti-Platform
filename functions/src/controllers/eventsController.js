@@ -105,24 +105,6 @@ async function deleteEvent(req, res) {
   }
 }
 
-async function deleteEvent(req, res) {
-  try {
-    const eventRef = db.collection("events").doc(req.params.eventId);
-    const eventDoc = await eventRef.get();
-
-    if (!eventDoc.exists) {
-      res
-        .status(404)
-        .json({ message: "The Event Document you requested does not exist" });
-    } else {
-      await db.collection("events").doc(req.params.eventId).delete();
-      res.status(200).json({ message: "Event Document Deleted Successfully" });
-    }
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-}
-
 async function updateEvent(req, res) {
   const shouldMerge = req.query.shouldMerge === "true";
 
