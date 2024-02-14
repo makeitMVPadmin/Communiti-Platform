@@ -9,7 +9,11 @@ const AuthenticationMiddleware = require("./src/utilities/authMiddleware");
 
 // Swagger Related Imports
 const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger_output.json");
+const YAML = require("yaml");
+const fs = require("fs");
+
+const file = fs.readFileSync("./swagger_config.yaml", "utf8");
+const swaggerDocument = YAML.parse(file);
 
 // Router
 const router = require("./src/routes/router");
@@ -25,6 +29,6 @@ app.use(AuthenticationMiddleware.decodeToken);
 
 app.use(router);
 
-app.use(["/"], swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use(["/"], swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 exports.api = functions.https.onRequest(app);

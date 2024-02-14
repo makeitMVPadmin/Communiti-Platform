@@ -1,34 +1,55 @@
-const { getFirestore, FieldValue } = require("firebase-admin/firestore");
-const { initializeApp } = require("firebase-admin/app");
-
 const {
-  collection,
-  query,
-  where,
-  getDocs,
-  getDoc,
-  doc,
-  setDoc,
-  addDoc,
-} = require("firebase/firestore");
+  getFirestore,
+  FieldValue,
+  Timestamp,
+} = require("firebase-admin/firestore");
+
+const validatePostEvent = require("../utilities/validatePostEvent");
+const validatePutEvent = require("../utilities/validatePutEvent");
+const { initializeApp } = require("firebase-admin/app");
 
 const db = getFirestore();
 
-async function addEvents(req, res) {
-  const { title, text } = req.body;
+async function addEvent(req, res) {
+  const {
+    title,
+    description,
+    date,
+    startTime,
+    endTime,
+    eventImage,
+    locationType,
+    timezone,
+    venueAddress,
+    requiresApproval,
+  } = req.body;
 
   try {
+    validatePostEvent(req.body);
+
     const eventDoc = await db.collection("events").add({
       title: title,
-      text: text,
+      description: description,
+      date: Timestamp.fromMillis(new Date(date).getTime()), // ISO Date String of shape "YYYY-MM-DD"
+      createdAt: Timestamp.now(),
+      startTime: Timestamp.fromMillis(startTime), // We expect start time in the milliseconds
+      endTime: Timestamp.fromMillis(endTime),
+      eventImage: eventImage,
+      locationType: locationType,
+      timezone: timezone,
+      venueAddress: venueAddress,
+      requiresApproval: requiresApproval,
+      attendees: [],
+      requests: [],
     });
 
-    res.status(200).send({
+    res.status(201).send({
       status: "success",
       message: `event added successfully with ID ${eventDoc.id}`,
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    if (error.code) res.status(error.code).json(error.error.message);
+    else res.status(500).json(error.message);
   }
 }
 
@@ -106,6 +127,8 @@ async function updateEvent(req, res) {
   const shouldMerge = req.query.shouldMerge === "true";
 
   try {
+    validatePutEvent(req.body);
+
     const eventRef = db.collection("events").doc(req.params.eventId);
     const eventDoc = await eventRef.get();
 
@@ -156,7 +179,7 @@ async function addAttendingUsersToEvent(req, res) {
 }
 module.exports = {
   getAllEvents,
-  addEvents,
+  addEvent,
   getSingleEvent,
   deleteEvent,
   updateEvent,

@@ -1,0 +1,204 @@
+swagger: "2.0"
+info:
+  title: Communiti API - By MergeIntegration @makeitMVP ©
+  description:
+    Fully serverless REST api managing the backend for Communiti, SuperGroup, Coffee Chat, and MergeIntegration teams.
+    The Objective of this API is to provide a Centralized solution for the Software Solutions within the makeitMVP ecosystem.
+  version: 1.0.0
+host: 127.0.0.1:5001/communiti-630fc/us-central1/api
+
+schemes:
+  - http
+paths:
+  /events:
+    get:
+      summary: Returns a list of Events
+      description: Returns a list of Events instances.
+      tags:
+        - events
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: An Array of Event Objects
+          examples:
+            application/json:
+              events:
+                - event1:
+                  id: 19394848UDODj2
+                  title: Valentine's Day Event
+                  description: The larger description of love
+                - event2:
+                  id: 19394848UDODj2
+                  title: Valentine's Day Event
+                  description: The larger description of love
+    post:
+      summary: Creates a new Event
+      description: Creates a new Event object in the firestore Database
+      tags:
+        - events
+      produces:
+        - application/json
+      responses:
+        200:
+          description: The event was successfully created with ID 15738_SOME_ID
+      parameters:
+        - in: body
+          name: event
+          description: An event instance
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: My Awesome Event Title
+              locationType:
+                type: string
+                example: IN-PERSON
+              date:
+                type: string
+                example: "1993-08-22"
+
+              description:
+                type: string
+                example: Some beautiful, more precise and longer description about this magnificent event.
+
+              startTime:
+                type: integer
+                example: 1707777750184
+
+              endTime:
+                type: integer
+                example: 1707777750500
+
+              eventImage:
+                type: string
+                example: https://lh3.googleusercontent.com/p/AF1QipO8YFYY-xsT6M0te3P2X7L4yAfekb8_NpCUn0Ti=s1360-w1360-h1020
+
+              timezone:
+                type: string
+                example: "EST"
+
+              venueAddress:
+                type: string
+                example: "5469 heather st, V5Z 3M1, BC, Canada"
+
+              requiresApproval:
+                type: boolean
+                example: "true"
+
+  /events/{eventId}:
+    get:
+      summary: Returns a single event
+      description: Returns a single event Resource.
+      tags:
+        - events
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: An Event object
+          examples:
+            application/json:
+              id: 19394848UDODj2
+              title: Valentine's Day Event
+              description: The larger description of love
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: integer
+          required: true
+          description: The UUID for the required event.
+    delete:
+      summary: Deletes an event
+      description: Deletes an event resource.
+      tags:
+        - events
+      produces:
+        - application/json
+
+      responses:
+        200:
+          description: The Event with ID:SOME_ID was successfully deleted.
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: integer
+          required: true
+          description: The UUID for the required event.
+
+    put:
+      summary: Updates an Event Resource
+      description: Updates an event resourse, all parameters are optional. The default behaviour is to update the existing resource, while keeping existing fields, and only overriding new values.
+      tags:
+        - events
+      produces:
+        - application/json
+      responses:
+        200:
+          description: The Event was successfully updated with ID:15738_SOME_ID
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: integer
+          required: true
+          description: The UUID for the required event.
+        - in: body
+          name: event
+          description: An event instance
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: My Awesome Event Title
+              locationType:
+                type: string
+                example: IN-PERSON
+              date:
+                type: string
+                example: "1993-08-22"
+
+              description:
+                type: string
+                example: Some beautiful, more precise and longer description about this magnificent event.
+
+              startTime:
+                type: integer
+                example: 1707777750184
+
+              endTime:
+                type: integer
+                example: 1707777750500
+
+              eventImage:
+                type: string
+                example: https://lh3.googleusercontent.com/p/AF1QipO8YFYY-xsT6M0te3P2X7L4yAfekb8_NpCUn0Ti=s1360-w1360-h1020
+
+              timezone:
+                type: string
+                example: "EST"
+
+              venueAddress:
+                type: string
+                example: "5469 heather st, V5Z 3M1, BC, Canada"
+
+              requiresApproval:
+                type: boolean
+                example: "true"
+  /user:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in Markdown.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+      tags:
+        - Authentication Required
