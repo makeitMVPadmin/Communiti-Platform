@@ -43,6 +43,10 @@ paths:
         200:
           description: The event was successfully created with ID 15738_SOME_ID
       parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
         - in: body
           name: event
           description: An event instance

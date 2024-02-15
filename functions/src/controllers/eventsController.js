@@ -25,9 +25,12 @@ async function addEvent(req, res) {
   } = req.body;
 
   try {
+    console.log(req.user);
+
     validatePostEvent(req.body);
 
     const eventDoc = await db.collection("events").add({
+      hostUser: req.user.user_id,
       title: title,
       description: description,
       date: Timestamp.fromMillis(new Date(date).getTime()), // ISO Date String of shape "YYYY-MM-DD"

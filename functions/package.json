@@ -6,7 +6,7 @@
     "shell": "firebase functions:shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest"
+    "test": "mocha --reporter spec"
   },
   "engines": {
     "node": "18"
@@ -20,12 +20,11 @@
     "firebase": "^10.8.0",
     "firebase-admin": "^11.11.1",
     "firebase-functions": "^4.3.1",
+    "mocha": "^10.3.0",
     "yaml": "^2.3.4"
   },
   "devDependencies": {
-    "firebase-functions-test": "^3.1.0",
-    "jest": "^29.7.0",
-    "supertest": "^6.3.4",
+    "firebase-functions-test": "^3.1.1",
     "swagger-ui-express": "^5.0.0"
   },
   "private": true
