@@ -1,4 +1,4 @@
-const { getFirestore, FieldValue } = require("firebase-admin/firestore");
+const { getFirestore } = require("firebase-admin/firestore");
 const { initializeApp } = require("firebase-admin/app");
 
 const {
@@ -106,6 +106,10 @@ async function updateCommunity(req, res) {
       res
         .status(404)
         .json({ message: "The Community Document you requested does not exist" });
+    } else if(communityRef.createdBy != req.user){
+      res
+      .status(401)
+      .json({ message: "User is not authorized to update Community"})
     } else {
       const result = await communityRef.set(
         { ...req.body },
