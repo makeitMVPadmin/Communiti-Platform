@@ -1,4 +1,4 @@
-const { getFirestore } = require("firebase-admin/firestore");
+const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { initializeApp } = require("firebase-admin/app");
 
 const {
@@ -21,11 +21,11 @@ async function addCommunity(req, res) {
     const communityDoc = await db.collection("communities").add({
       name: name,
       announcements: [],
-      members: [req.user],
+      members: [req.user.user_id],
       events: [],
       communityImage: communityImage,
       dateCreated: Date.now(),
-      createdBy: req.user,
+      createdBy: req.user.user_id,
       description: description,
       location: location,
       newsletters: []
@@ -61,7 +61,7 @@ async function getSingleCommunity(req, res) {
   try {
     const communityRef = db.collection("communities").doc(req.params.communityId);
     const doc = await communityRef.get();
-
+    
     if (!doc.exists) {
       res
         .status(404)
@@ -82,12 +82,13 @@ async function deleteCommunity(req, res) {
       res
         .status(404)
         .json({ message: "The Community Document you requested does not exist" });
-    } else if(communityRef.createdBy != req.user){
+    } else if(communityDoc.data().createdBy != req.user.user_id){
+     
       res
       .status(401)
       .json({ message: "User is not authorized to delete Community"})
     } else {
-      await db.collection("communities").doc(req.params.eventId).delete();
+      await db.collection("communities").doc(req.params.communityId).delete();
       res.status(200).json({ message: "Community Document Deleted Successfully" });
     }
   } catch (error) {
@@ -106,7 +107,7 @@ async function updateCommunity(req, res) {
       res
         .status(404)
         .json({ message: "The Community Document you requested does not exist" });
-    } else if(communityRef.createdBy != req.user){
+    } else if(communityDoc.data().createdBy != req.user.user_id){
       res
       .status(401)
       .json({ message: "User is not authorized to update Community"})
@@ -127,15 +128,16 @@ async function updateCommunity(req, res) {
 async function addMemberToCommunity(req, res) {
   const communityId = req.params.communityId;
   //ID of member to be added
-  const memberId = req.body;
+  const {memberId} = req.query;
 
   try{
     const communityRef = db.collection("communities").doc(communityId);
   
-    const userRef = db.collection("users").doc(memberId);
+    if(communityRef.createdBy == req.user)
+    // const userRef = db.collection("users").doc(memberId);
 
     await communityRef.update({
-      members: FieldValue.arrayUnion(...userRef),
+      members: FieldValue.arrayUnion(memberId),
     });
 
     res.status(200).json({
@@ -149,16 +151,30 @@ async function addMemberToCommunity(req, res) {
 async function deleteMemberFromCommunity(req, res) {
   const communityId = req.params.communityId;
   //ID of member to be deleted
-  const memberId = req.body;
+  const {memberId} = req.query;
  
   try {
     const communityRef = db.collection("communities").doc(communityId);
-  
-    const userRef = db.collection("users").doc(memberId);
+    const communityDoc = await communityRef.get();
+    const communityData = communityDoc.data();
+    const originalLength = communityData.members.length;
 
+
+    if(!(communityData.createdBy == req.user.user_id || memberId == req.user.user_id)){
+      res
+      .status(401)
+      .json({ message: "User is not authorized to delete member from community"})
+    }
+    if(!communityData.members.includes(memberId)){
+      res
+      .status(404)
+      .json({ message: "Member was not found in community."})
+    }
     await communityRef.update({
-      members: FieldValue.arrayRemove(userRef),
+      members: FieldValue.arrayRemove(memberId)
     });
+
+    //prints successful even if member doesn't exist
 
     res.status(200).json({
       message: `Successfully removed member from community.`
