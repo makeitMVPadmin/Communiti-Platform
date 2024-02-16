@@ -9,7 +9,7 @@ attachmentsRouter.get(
   attachmentsController.getSingleAttachment
 );
 
-attachmentsRouter.get("/", attachmentsController.getAllattachments);
+attachmentsRouter.get("/", attachmentsController.getAllAttachments);
 
 attachmentsRouter.patch(
   "/:attachmentId",
