@@ -27,6 +27,12 @@
         "description": "",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "example": "Bearer SOMECOOLTOKEN"
+
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -175,6 +181,24 @@
             "in": "query",
             "type": "string"
           }
+          , {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "contents": {
+                  "example": "Hello World"
+                },
+                "recipientId": {
+                  "example": "any"
+                },
+                "aiResponse": {
+                  "example": "any"
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -226,6 +250,12 @@
       "post": {
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "example": "Bearer SOMECOOLTOKEN"
+
+          },
           {
             "name": "body",
             "in": "body",

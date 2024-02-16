@@ -17,9 +17,10 @@ const db = getFirestore();
 async function addMessage(req, res) {
   const { contents, recipientId, aiResponse } = req.body;
 
+  console.log(req.user);
   try {
     const messageDoc = await db.collection("messages").add({
-      sender: sender,
+      senderId: req.user.user_id,
       contents: contents,
       recipientId: recipientId, // recipient?
       sentTimestamp: Date.now(),
@@ -81,7 +82,7 @@ async function updateMessage(req, res) {
         .status(404)
         .json({ message: "The Message Document you requested does not exist" });
     } else {
-      const result = await messageRef.set( 
+      const result = await messageRef.set(
         { ...req.body },
         { merge: shouldMerge }
       );
@@ -105,7 +106,9 @@ async function deleteMessage(req, res) {
         .json({ message: "The Message Document you requested does not exist" });
     } else {
       await db.collection("messages").doc(req.params.messageId).delete();
-      res.status(200).json({ message: "message Document Deleted Successfully" });
+      res
+        .status(200)
+        .json({ message: "message Document Deleted Successfully" });
     }
   } catch (error) {
     return res.status(500).json(error.message);
