@@ -127,7 +127,6 @@ async function updateCommunity(req, res) {
 
 async function addMemberToCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be added
   const {memberId} = req.query;
 
   try{
@@ -148,7 +147,6 @@ async function addMemberToCommunity(req, res) {
 
 async function deleteMemberFromCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be deleted
   const {memberId} = req.query;
  
   try {
@@ -171,7 +169,6 @@ async function deleteMemberFromCommunity(req, res) {
       members: FieldValue.arrayRemove(memberRef)
     });
 
-    //prints successful even if member doesn't exist
 
     res.status(200).json({
       message: `Successfully removed member from community.`
@@ -184,7 +181,6 @@ async function deleteMemberFromCommunity(req, res) {
 
 async function addAnnouncementToCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be added
   const {announcementId} = req.query;
 
   try{
@@ -205,7 +201,6 @@ async function addAnnouncementToCommunity(req, res) {
 
 async function deleteAnnouncementFromCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be deleted
   const {announcementId} = req.query;
  
   try {
@@ -239,7 +234,6 @@ async function deleteAnnouncementFromCommunity(req, res) {
 
 async function addEventToCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be added
   const {eventId} = req.query;
 
   try{
@@ -260,7 +254,6 @@ async function addEventToCommunity(req, res) {
 
 async function deleteEventFromCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be deleted
   const {eventId} = req.query;
  
   try {
@@ -283,7 +276,6 @@ async function deleteEventFromCommunity(req, res) {
       events: FieldValue.arrayRemove(eventRef)
     });
 
-    //prints successful even if member doesn't exist
 
     res.status(200).json({
       message: `Successfully removed event from community.`
@@ -296,7 +288,6 @@ async function deleteEventFromCommunity(req, res) {
 
 async function addNewsLetterToCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be added
   const {newsletterId} = req.query;
 
   try{
@@ -317,7 +308,6 @@ async function addNewsLetterToCommunity(req, res) {
 
 async function deleteNewsletterFromCommunity(req, res) {
   const communityId = req.params.communityId;
-  //ID of member to be deleted
   const {newsletterId} = req.query;
  
   try {
