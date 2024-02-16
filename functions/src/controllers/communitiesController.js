@@ -21,11 +21,11 @@ async function addCommunity(req, res) {
     const communityDoc = await db.collection("communities").add({
       name: name,
       announcements: [],
-      members: [req.user.user_id],
+      members: [req.user],
       events: [],
       communityImage: communityImage,
       dateCreated: Date.now(),
-      createdBy: req.user.user_id,
+      createdBy: req.user,
       description: description,
       location: location,
       newsletters: []
@@ -132,12 +132,10 @@ async function addMemberToCommunity(req, res) {
 
   try{
     const communityRef = db.collection("communities").doc(communityId);
-  
-    if(communityRef.createdBy == req.user)
-    // const userRef = db.collection("users").doc(memberId);
+    const memberRef = db.collection("users").doc(memberId);
 
     await communityRef.update({
-      members: FieldValue.arrayUnion(memberId),
+      members: FieldValue.arrayUnion(memberRef),
     });
 
     res.status(200).json({
@@ -157,27 +155,193 @@ async function deleteMemberFromCommunity(req, res) {
     const communityRef = db.collection("communities").doc(communityId);
     const communityDoc = await communityRef.get();
     const communityData = communityDoc.data();
-    const originalLength = communityData.members.length;
+    const memberRef = db.collection("users").doc(memberId);
 
-
-    if(!(communityData.createdBy == req.user.user_id || memberId == req.user.user_id)){
+    if(!(communityData.createdBy == req.user || memberId == req.user.user_id)){
       res
       .status(401)
       .json({ message: "User is not authorized to delete member from community"})
     }
-    if(!communityData.members.includes(memberId)){
+    if(!communityData.members.includes(memberRef)){
       res
       .status(404)
       .json({ message: "Member was not found in community."})
     }
     await communityRef.update({
-      members: FieldValue.arrayRemove(memberId)
+      members: FieldValue.arrayRemove(memberRef)
     });
 
     //prints successful even if member doesn't exist
 
     res.status(200).json({
       message: `Successfully removed member from community.`
+    });
+
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+async function addAnnouncementToCommunity(req, res) {
+  const communityId = req.params.communityId;
+  //ID of member to be added
+  const {announcementId} = req.query;
+
+  try{
+    const communityRef = db.collection("communities").doc(communityId);
+    const announcementRef = db.collection("announcements").doc(announcementId);
+
+    await communityRef.update({
+      announcements: FieldValue.arrayUnion(announcementRef),
+    });
+
+    res.status(200).json({
+      message: `Successfully added announcement to community.`
+    });
+  } catch(error){
+    return res.status(500).json(error.message);
+  }
+}
+
+async function deleteAnnouncementFromCommunity(req, res) {
+  const communityId = req.params.communityId;
+  //ID of member to be deleted
+  const {announcementId} = req.query;
+ 
+  try {
+    const communityRef = db.collection("communities").doc(communityId);
+    const communityDoc = await communityRef.get();
+    const communityData = communityDoc.data();
+    const announcementRef = db.collection("announcements").doc(announcementId);
+
+    if(!(communityData.createdBy == req.user)){
+      res
+      .status(401)
+      .json({ message: "User is not authorized to remove announcement from community"})
+    }
+    if(!communityData.announcements.includes(announcementRef)){
+      res
+      .status(404)
+      .json({ message: "Announcement was not found in community."})
+    }
+    await communityRef.update({
+      announcements: FieldValue.arrayRemove(announcementRef)
+    });
+
+    res.status(200).json({
+      message: `Successfully removed member from community.`
+    });
+
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+async function addEventToCommunity(req, res) {
+  const communityId = req.params.communityId;
+  //ID of member to be added
+  const {eventId} = req.query;
+
+  try{
+    const communityRef = db.collection("communities").doc(communityId);
+    const eventRef = db.collection("events").doc(eventId);
+
+    await communityRef.update({
+      events: FieldValue.arrayUnion(eventRef),
+    });
+
+    res.status(200).json({
+      message: `Successfully added event to community.`
+    });
+  } catch(error){
+    return res.status(500).json(error.message);
+  }
+}
+
+async function deleteEventFromCommunity(req, res) {
+  const communityId = req.params.communityId;
+  //ID of member to be deleted
+  const {eventId} = req.query;
+ 
+  try {
+    const communityRef = db.collection("communities").doc(communityId);
+    const communityDoc = await communityRef.get();
+    const communityData = communityDoc.data();
+    const eventRef = db.collection("events").doc(eventId);
+
+    if(!(communityData.createdBy == req.user )){
+      res
+      .status(401)
+      .json({ message: "User is not authorized to delete event from community"})
+    }
+    if(!communityData.events.includes(eventRef)){
+      res
+      .status(404)
+      .json({ message: "Event was not found in community."})
+    }
+    await communityRef.update({
+      events: FieldValue.arrayRemove(eventRef)
+    });
+
+    //prints successful even if member doesn't exist
+
+    res.status(200).json({
+      message: `Successfully removed event from community.`
+    });
+
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+async function addNewsLetterToCommunity(req, res) {
+  const communityId = req.params.communityId;
+  //ID of member to be added
+  const {newsletterId} = req.query;
+
+  try{
+    const communityRef = db.collection("communities").doc(communityId);
+    const newsletterRef = db.collection("announcements").doc(newsletterId);
+
+    await communityRef.update({
+      newsletters: FieldValue.arrayUnion(newsletterRef),
+    });
+
+    res.status(200).json({
+      message: `Successfully added newsletter to community.`
+    });
+  } catch(error){
+    return res.status(500).json(error.message);
+  }
+}
+
+async function deleteNewsletterFromCommunity(req, res) {
+  const communityId = req.params.communityId;
+  //ID of member to be deleted
+  const {newsletterId} = req.query;
+ 
+  try {
+    const communityRef = db.collection("communities").doc(communityId);
+    const communityDoc = await communityRef.get();
+    const communityData = communityDoc.data();
+    const newsletterRef = db.collection("announcements").doc(newsletterId);
+
+    if(!(communityData.createdBy == req.user)){
+      res
+      .status(401)
+      .json({ message: "User is not authorized to remove newsletter from community"})
+    }
+    if(!communityData.newsletters.includes(newsletterRef)){
+      res
+      .status(404)
+      .json({ message: "Newsletter was not found in community."})
+    }
+    await communityRef.update({
+      newsletters: FieldValue.arrayRemove(newsletterRef)
+    });
+
+    res.status(200).json({
+      message: `Successfully removed newsletter from community.`
     });
 
   } catch (error) {
@@ -192,5 +356,11 @@ module.exports = {
   deleteCommunity,
   updateCommunity,
   addMemberToCommunity,
-  deleteMemberFromCommunity
+  deleteMemberFromCommunity,
+  addAnnouncementToCommunity,
+  deleteAnnouncementFromCommunity,
+  addEventToCommunity,
+  deleteEventFromCommunity,
+  addNewsLetterToCommunity,
+  deleteNewsletterFromCommunity
 };
