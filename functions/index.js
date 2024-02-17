@@ -9,11 +9,7 @@ const AuthenticationMiddleware = require("./src/utilities/authMiddleware");
 
 // Swagger Related Imports
 const swaggerUi = require("swagger-ui-express");
-const YAML = require("yaml");
-const fs = require("fs");
-
-const file = fs.readFileSync("./swagger_config.yaml", "utf8");
-const swaggerDocument = YAML.parse(file);
+const swaggerFile = require("./swagger_output.json");
 
 // Router
 const router = require("./src/routes/router");
@@ -29,13 +25,6 @@ app.use(AuthenticationMiddleware.decodeToken);
 
 app.use(router);
 
-app.use(["/"], swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(["/docs"], swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 exports.api = functions.https.onRequest(app);
-
-const { logger } = require("firebase-functions");
-const { onObjectFinalized } = require("firebase-functions/v2/storage");
-
-exports.logstore = onObjectFinalized("my-bucket", (cloudEvent) => {
-  logger.log(cloudEvent);
-});
