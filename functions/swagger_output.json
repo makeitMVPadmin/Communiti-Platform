@@ -7,9 +7,7 @@
   },
   "host": "127.0.0.1:5001/communiti-630fc/us-central1/api",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/events/": {
       "get": {
@@ -30,7 +28,6 @@
             "name": "authorization",
             "in": "header",
             "example": "Bearer SOMECOOLTOKEN"
-
           },
           {
             "name": "body",
@@ -180,8 +177,8 @@
             "name": "shouldMerge",
             "in": "query",
             "type": "string"
-          }
-          , {
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -254,7 +251,6 @@
             "name": "authorization",
             "in": "header",
             "example": "Bearer SOMECOOLTOKEN"
-
           },
           {
             "name": "body",
