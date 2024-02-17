@@ -2,7 +2,7 @@ const admin = require("../config/firebaseConfig");
 
 class AuthenticationMiddleware {
   async decodeToken(req, res, next) {
-    if (!req.path.startsWith("/events")) return next(); // If path doesn't start with user NEXT!
+    if (req.path.startsWith("/docs")) return next(); // If path doesn't start with user NEXT!
 
     if (!req.headers.authorization)
       return res.status(401).json({ message: "Unauthorized " });
