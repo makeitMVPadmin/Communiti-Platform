@@ -10,8 +10,10 @@ eventsRouter.get("/:eventId", eventsController.getSingleEvent);
 
 eventsRouter.patch("/:eventId", eventsController.updateEvent);
 
-eventsRouter.post("/", eventsController.addEvents);
+eventsRouter.post("/", eventsController.addEvent);
 
 eventsRouter.delete("/:eventId", eventsController.deleteEvent);
+
+eventsRouter.post("/:eventId/users", eventsController.addAttendingUsersToEvent);
 
 module.exports = eventsRouter;
