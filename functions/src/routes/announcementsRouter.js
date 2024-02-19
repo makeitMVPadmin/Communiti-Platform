@@ -1,6 +1,6 @@
 const express = require("express");
 
-const announcementsController = require("../controllers/announcementsController.js");
+const announcementsController = require("../controllers/announcementsController");
 
 
 announcementsRouter.get("/", announcementsController.getAllAnnouncements);
@@ -9,7 +9,7 @@ announcementsRouter.get("/:announcementId", announcementsController.getSingleAnn
 
 announcementsRouter.patch("/:announcementId", announcementsController.updateAnnouncement);
 
-announcementsRouter.post("/", announcementsController.addAnnouncement);
+announcementsRouter.post("/", announcementsController.addAnnouncements);
 
 announcementsRouter.delete("/:announcementId", announcementsController.deleteAnnouncement);
 

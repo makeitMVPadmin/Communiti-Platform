@@ -9,7 +9,7 @@ const { initializeApp } = require("firebase-admin/app");
 const db = getFirestore();
 
 async function addAnnouncements(req, res) {
-  const { message} = req.body;
+  const {message} = req.body;
 
   try {
     
@@ -17,7 +17,7 @@ async function addAnnouncements(req, res) {
     const announcementDoc = await db.collection("announcements").add({
       createdBy: req.user.user_id,
       createdAt: Timestamp.now(),
-      message:message
+      message:message,
     });
 
     res.status(201).send({
@@ -111,7 +111,7 @@ async function updateAnnouncement(req, res) {
 
 module.exports = {
   getAllAnnouncements,
-  addAnnouncement,
+  addAnnouncements,
   getSingleAnnouncement,
   deleteAnnouncement,
   updateAnnouncement,
