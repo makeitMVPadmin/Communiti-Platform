@@ -2,6 +2,7 @@ const express = require("express");
 
 const announcementsController = require("../controllers/announcementsController");
 
+const announcementsRouter=express.Router();
 
 announcementsRouter.get("/", announcementsController.getAllAnnouncements);
 

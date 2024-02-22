@@ -2,25 +2,22 @@ const express = require("express");
 
 const eventsRouter = require("./eventsRouter");
 
-const userRouter=require("./userRouter");
+const usersRouter=require("./usersRouter");
 const chatsRouter=require("./chatsRouter")
 const messagesRouter = require("./messagesRouter");
 const communitiesRouter=require("./communitiesRouter");
-const announcementRouter=require("./announcementsRouter")
-
-
-
+const announcementsRouter=require("./announcementsRouter")
 
 const router = express.Router();
 
 
 
 router.use("/events", eventsRouter);
-router.use("/user", userRouter);
+router.use("/users", usersRouter);
 router.use("/chats", chatsRouter);
 router.use("/messages", messagesRouter);
 router.use("/communities", communitiesRouter);
-router.use("/announcements", announcementRouter)
+router.use("/announcements", announcementsRouter);
 
 
 module.exports = router;

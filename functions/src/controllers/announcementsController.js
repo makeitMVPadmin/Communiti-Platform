@@ -1,10 +1,16 @@
-const { getFirestore,
-  FieldValue,
-  Timestamp,
-} = require("firebase-admin/firestore");
-
-
+const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { initializeApp } = require("firebase-admin/app");
+
+const {
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+  setDoc,
+  addDoc,
+} = require("firebase/firestore");
 
 const db = getFirestore();
 
@@ -86,7 +92,6 @@ async function updateAnnouncement(req, res) {
   const shouldMerge = req.query.shouldMerge === "true";
 
   try {
-    validatePutAnnouncement(req.body);
 
     const announcementRef = db.collection("announcements").doc(req.params.announcementId);
     const announcementDoc = await announcementRef.get();

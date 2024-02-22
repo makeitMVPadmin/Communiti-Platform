@@ -8,6 +8,7 @@
     "logs": "firebase functions:log",
     "swagger": "node ./swagger.js",
     "test": "mocha --reporter spec"
+
   },
   "engines": {
     "node": "18"
