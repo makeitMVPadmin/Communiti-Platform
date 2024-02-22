@@ -39,4 +39,4 @@ usersRouter.post("/:userId/communitesManaged", usersController.addCreatedCommuni
 usersRouter.delete("/:userId/communitiesManaged", usersController.deleteManagedCommunity);
 
 
-module.exports = userRouter;
+module.exports = usersRouter;
