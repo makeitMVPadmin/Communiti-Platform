@@ -1,5 +1,6 @@
 const { getFirestore } = require("firebase-admin/firestore");
 const { initializeApp } = require("firebase-admin/app");
+const { uploadBytes } = require("firebase/storage");
 
 const {
   collection,
@@ -14,21 +15,36 @@ const {
 
 const db = getFirestore();
 
+const storage = getStorage(db);
+
 async function addAttachment(req, res) {
   const { name, type, blob } = req.body;
 
   try {
-    const eventDoc = await db.collection("attachments").add({
-      name: name,
-      type: type,
-      blob: blob,
-      createdBy: req.user.user_id,
-      createdAt: Date.now(),
-    });
+    const storageRef = ref(storage, `files/myImage.jpeg`);
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+    const snapshot = await uploadBytesResumable(
+      storageRef,
+      blob.buffer,
+      metadata
+    );
+
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    // const eventDoc = await db.collection("attachments").add({
+    //   name: name,
+    //   type: type,
+    //   blob: blob,
+    //   createdBy: req.user.user_id,
+    //   createdAt: Date.now(),
+    //});
 
     res.status(200).send({
       status: "success",
       message: `Attachment added successfully with ID ${eventDoc.id}`,
+      downloadURL: downloadURL,
     });
   } catch (error) {
     res.status(500).json(error.message);

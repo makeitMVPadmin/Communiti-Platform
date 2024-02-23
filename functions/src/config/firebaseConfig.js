@@ -2,7 +2,7 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("./serviceAccount.json");
 
-admin.initializeApp({
+admin.pp({
   credential: admin.credential.cert(serviceAccount),
 });
 
