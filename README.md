@@ -1,4 +1,4 @@
-# Backend API for the makeitMVP ecosystem - By MergeIntegration
+# Backend API for the makeitMVP ecosystem - By Team MergeIntegration
 
 ## 0. Getting Started
 
