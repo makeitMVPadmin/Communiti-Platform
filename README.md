@@ -1,6 +1,6 @@
 # Backend API for the makeitMVP ecosystem - By MergeIntegration
 
-## 0. Getting Started
+## 0. Getting Started!
 
 1. Clone Repo, and `cd into the '/functions' directory`
 2. Run `npm install`
